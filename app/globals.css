@@ -6,6 +6,11 @@
 
 :root {
   color-scheme: dark;
+  --color-bg: #0a0a0a;
+  --color-lime: #beff00;
+  --color-magenta: #ff2d78;
+  --color-cyan: #00f0ff;
+  --color-white: #ffffff;
 }
 
 html {
@@ -14,9 +19,9 @@ html {
 
 body {
   font-family: "DM Sans", sans-serif;
-  font-size: 16px;
+  font-size: clamp(15px, 1vw, 16px);
   line-height: 1.7;
-  background: #0a0a0a;
+  background: var(--color-bg);
 }
 
 @media (pointer: fine) {
@@ -31,6 +36,11 @@ body {
 
 .section-number {
   @apply pointer-events-none mb-2 font-syne text-7xl font-extrabold leading-none text-white/10 md:text-9xl;
+}
+
+.site-container {
+  max-width: 1800px;
+  margin: 0 auto;
 }
 
 .blob {
@@ -56,8 +66,8 @@ body {
 }
 
 .hero-noise {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
-  background-size: 4px 4px;
+  background: rgba(255, 255, 255, 0.9);
+  filter: url(#grainFilter);
 }
 
 .custom-cursor-dot,
@@ -89,6 +99,14 @@ body {
   min-width: 200%;
   gap: 2rem;
   animation: marquee 22s linear infinite;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes marquee {

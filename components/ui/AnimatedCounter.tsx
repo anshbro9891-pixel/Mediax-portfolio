@@ -1,7 +1,11 @@
 "use client";
 
-import { animate, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type Props = {
   value: number;
@@ -9,16 +13,30 @@ type Props = {
 };
 
 export default function AnimatedCounter({ value, suffix = "+" }: Props) {
-  const [current, setCurrent] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
-    const controls = animate(0, value, {
-      duration: 1.2,
-      ease: "easeOut",
-      onUpdate: (latest) => setCurrent(Math.round(latest)),
-    });
-    return () => controls.stop();
-  }, [value]);
+  useGSAP(
+    () => {
+      if (!ref.current) return;
+      const state = { val: 0 };
+      const tween = gsap.to(state, {
+        val: value,
+        duration: 1.4,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 88%",
+          once: true,
+        },
+        onUpdate: () => {
+          if (!ref.current) return;
+          ref.current.textContent = `${Math.round(state.val)}${suffix}`;
+        },
+      });
+      return () => tween.kill();
+    },
+    { scope: ref },
+  );
 
-  return <motion.span>{current}{suffix}</motion.span>;
+  return <span ref={ref}>0{suffix}</span>;
 }

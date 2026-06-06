@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { randomUUID } from "crypto";
 import { promises as fs } from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unsupported extension" }, { status: 400 });
   }
 
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const filename = `${Date.now()}-${randomUUID()}.${ext}`;
   const uploadDir = path.join(process.cwd(), "public", "uploads");
   const targetPath = path.join(uploadDir, filename);
 

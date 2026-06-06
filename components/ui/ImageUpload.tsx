@@ -1,6 +1,12 @@
 "use client";
 
-export default function ImageUpload({ onUploaded }: { onUploaded: (path: string) => void }) {
+export default function ImageUpload({
+  onUploaded,
+  onError,
+}: {
+  onUploaded: (path: string) => void;
+  onError?: (message: string) => void;
+}) {
   return (
     <input
       type="file"
@@ -11,7 +17,11 @@ export default function ImageUpload({ onUploaded }: { onUploaded: (path: string)
         const formData = new FormData();
         formData.append("file", file);
         const response = await fetch("/api/upload", { method: "POST", body: formData });
-        if (!response.ok) return;
+        if (!response.ok) {
+          const payload = (await response.json()) as { error?: string };
+          onError?.(payload.error || "Upload failed");
+          return;
+        }
         const data = (await response.json()) as { path: string };
         onUploaded(data.path);
       }}

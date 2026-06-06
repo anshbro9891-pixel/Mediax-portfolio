@@ -1,13 +1,43 @@
 "use client";
 
 import type { Settings } from "@/lib/data";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function Contact({ settings }: { settings: Settings }) {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const headingTween = gsap.fromTo(
+        ".contact-heading",
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          scrollTrigger: {
+            trigger: ".contact-heading",
+            scrub: true,
+            start: "top 92%",
+            end: "top 45%",
+          },
+        },
+      );
+
+      return () => headingTween.kill();
+    },
+    { scope: sectionRef },
+  );
+
   return (
-    <section id="contact" className="relative mx-auto grid max-w-[1800px] gap-10 px-6 py-24 md:grid-cols-2 md:px-10">
+    <section id="contact" ref={sectionRef} className="site-container relative grid gap-10 px-6 py-24 md:grid-cols-2 md:px-10">
       <p className="pointer-events-none absolute right-6 top-0 text-6xl font-extrabold text-white/5 md:text-8xl">LET&apos;S WORK</p>
       <div>
-        <h2 className="font-syne text-5xl font-extrabold text-white">Contact</h2>
+        <h2 className="contact-heading font-syne text-5xl font-extrabold text-white">Contact</h2>
         <div className="mt-6 space-y-2 text-white/75">
           <p>{settings.email}</p>
           <p>{settings.phone}</p>
@@ -21,6 +51,7 @@ export default function Contact({ settings }: { settings: Settings }) {
           const form = event.currentTarget;
           const formData = new FormData(form);
           const data = Object.fromEntries(formData.entries());
+          // Placeholder behaviour per spec: no external API required.
           // eslint-disable-next-line no-console
           console.log("Contact form submission", data);
           form.reset();

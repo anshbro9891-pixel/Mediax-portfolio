@@ -29,7 +29,12 @@ export default function Navbar() {
         </button>
       </nav>
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-black text-3xl font-syne">
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-black text-3xl font-syne"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation menu"
+        >
           {links.map((link) => (
             <a key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</a>
           ))}
