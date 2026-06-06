@@ -6,18 +6,20 @@ import { useState } from "react";
 
 export default function SettingsManager({ initialSettings }: { initialSettings: Settings }) {
   const [settings, setSettings] = useState(initialSettings);
+  const [status, setStatus] = useState("");
 
   const save = async () => {
-    await fetch("/api/settings", {
+    const response = await fetch("/api/settings", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(settings),
     });
-    alert("Settings saved");
+    setStatus(response.ok ? "Settings saved." : "Could not save settings.");
   };
 
   return (
     <div className="space-y-4 rounded-xl border border-white/10 bg-white/5 p-5">
+      {status && <p className="text-sm text-white/75">{status}</p>}
       <input value={settings.agencyName} onChange={(e) => setSettings({ ...settings, agencyName: e.target.value })} placeholder="Agency Name" className="w-full rounded bg-black/40 p-3" />
       <input value={settings.tagline} onChange={(e) => setSettings({ ...settings, tagline: e.target.value })} placeholder="Tagline" className="w-full rounded bg-black/40 p-3" />
       <textarea value={settings.about} onChange={(e) => setSettings({ ...settings, about: e.target.value })} placeholder="About" className="h-28 w-full rounded bg-black/40 p-3" />

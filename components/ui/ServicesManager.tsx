@@ -9,6 +9,7 @@ export default function ServicesManager({ initialItems }: { initialItems: Servic
   const [items, setItems] = useState(initialItems);
   const [editing, setEditing] = useState<Service | null>(null);
   const [form, setForm] = useState(empty);
+  const [error, setError] = useState("");
 
   const save = async () => {
     const response = await fetch("/api/services", {
@@ -16,7 +17,12 @@ export default function ServicesManager({ initialItems }: { initialItems: Servic
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editing ? { ...editing, ...form } : form),
     });
+    if (!response.ok) {
+      setError("Could not save service.");
+      return;
+    }
     setItems((await response.json()) as Service[]);
+    setError("");
     setEditing(null);
     setForm(empty);
   };
@@ -24,6 +30,7 @@ export default function ServicesManager({ initialItems }: { initialItems: Servic
   return (
     <div className="space-y-6">
       <div className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-5 md:grid-cols-2">
+        {error && <p className="text-sm text-pink-400 md:col-span-2">{error}</p>}
         <input value={form.icon} onChange={(e) => setForm({ ...form, icon: e.target.value })} placeholder="Icon name" className="rounded bg-black/40 p-3" />
         <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Title" className="rounded bg-black/40 p-3" />
         <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Description" className="rounded bg-black/40 p-3 md:col-span-2" />
@@ -40,7 +47,7 @@ export default function ServicesManager({ initialItems }: { initialItems: Servic
                 <td className="p-3">{item.title}</td><td>{item.icon}</td><td>{item.order}</td>
                 <td className="p-3 space-x-3">
                   <button onClick={() => { setEditing(item); setForm({ ...item }); }} className="text-[#00F0FF]">Edit</button>
-                  <button onClick={async () => { if (!confirm("Delete this service?")) return; const r = await fetch(`/api/services?id=${item.id}`, { method: "DELETE" }); setItems((await r.json()) as Service[]); }} className="text-pink-400">Delete</button>
+                  <button onClick={async () => { if (!confirm("Delete this service?")) return; const r = await fetch(`/api/services?id=${item.id}`, { method: "DELETE" }); if (!r.ok) { setError("Could not delete service."); return; } setItems((await r.json()) as Service[]); setError(""); }} className="text-pink-400">Delete</button>
                 </td>
               </tr>
             ))}

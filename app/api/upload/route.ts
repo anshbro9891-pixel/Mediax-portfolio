@@ -13,7 +13,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No file" }, { status: 400 });
   }
 
-  const ext = (file.name.split(".").pop() || "bin").toLowerCase();
+  const allowedMimeTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"]);
+  if (!allowedMimeTypes.has(file.type)) {
+    return NextResponse.json({ error: "Unsupported file type" }, { status: 400 });
+  }
+
+  const ext = (file.name.split(".").pop() || "").toLowerCase();
+  const allowedExts = new Set(["jpg", "jpeg", "png", "webp", "gif", "svg"]);
+  if (!allowedExts.has(ext)) {
+    return NextResponse.json({ error: "Unsupported extension" }, { status: 400 });
+  }
+
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   const uploadDir = path.join(process.cwd(), "public", "uploads");
   const targetPath = path.join(uploadDir, filename);

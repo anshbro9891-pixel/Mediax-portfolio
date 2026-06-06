@@ -63,7 +63,10 @@ export async function readJsonFile<T>(filename: string): Promise<T> {
 }
 
 export async function writeJsonFile<T>(filename: string, data: T): Promise<void> {
-  await fs.writeFile(resolveFile(filename), `${JSON.stringify(data, null, 2)}\n`, "utf-8");
+  const target = resolveFile(filename);
+  const temp = `${target}.tmp`;
+  await fs.writeFile(temp, `${JSON.stringify(data, null, 2)}\n`, "utf-8");
+  await fs.rename(temp, target);
 }
 
 export const getProjects = () => readJsonFile<Project[]>("projects.json");

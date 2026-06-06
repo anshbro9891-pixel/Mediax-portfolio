@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { timingSafeEqual } from "crypto";
 import { redirect } from "next/navigation";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -14,12 +15,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         const email = credentials?.email as string | undefined;
         const password = credentials?.password as string | undefined;
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
 
         if (
           email &&
           password &&
-          email === process.env.ADMIN_EMAIL &&
-          password === process.env.ADMIN_PASSWORD
+          email === adminEmail &&
+          adminPassword &&
+          safeEqual(password, adminPassword)
         ) {
           return { id: "admin", email };
         }
@@ -52,4 +56,11 @@ export async function requireAdminSession() {
 export async function hasAdminSession() {
   const session = await auth();
   return !!session;
+}
+
+function safeEqual(input: string, secret: string) {
+  const left = Buffer.from(input);
+  const right = Buffer.from(secret);
+  if (left.length !== right.length) return false;
+  return timingSafeEqual(left, right);
 }

@@ -17,7 +17,12 @@ body {
   font-size: 16px;
   line-height: 1.7;
   background: #0a0a0a;
-  cursor: none;
+}
+
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
 }
 
 .font-syne {

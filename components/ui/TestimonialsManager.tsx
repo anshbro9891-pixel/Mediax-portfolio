@@ -10,6 +10,7 @@ export default function TestimonialsManager({ initialItems }: { initialItems: Te
   const [items, setItems] = useState(initialItems);
   const [editing, setEditing] = useState<Testimonial | null>(null);
   const [form, setForm] = useState(empty);
+  const [error, setError] = useState("");
 
   const save = async () => {
     const response = await fetch("/api/testimonials", {
@@ -17,7 +18,12 @@ export default function TestimonialsManager({ initialItems }: { initialItems: Te
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editing ? { ...editing, ...form } : form),
     });
+    if (!response.ok) {
+      setError("Could not save testimonial.");
+      return;
+    }
     setItems((await response.json()) as Testimonial[]);
+    setError("");
     setEditing(null);
     setForm(empty);
   };
@@ -25,6 +31,7 @@ export default function TestimonialsManager({ initialItems }: { initialItems: Te
   return (
     <div className="space-y-6">
       <div className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-5 md:grid-cols-2">
+        {error && <p className="text-sm text-pink-400 md:col-span-2">{error}</p>}
         <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Client name" className="rounded bg-black/40 p-3" />
         <input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder="Company" className="rounded bg-black/40 p-3" />
         <textarea value={form.quote} onChange={(e) => setForm({ ...form, quote: e.target.value })} placeholder="Quote" className="rounded bg-black/40 p-3 md:col-span-2" />
@@ -45,7 +52,7 @@ export default function TestimonialsManager({ initialItems }: { initialItems: Te
                 <td className="p-3">{item.name}</td><td>{item.company}</td><td>{item.rating}</td>
                 <td className="p-3 space-x-3">
                   <button onClick={() => { setEditing(item); setForm({ ...item }); }} className="text-[#00F0FF]">Edit</button>
-                  <button onClick={async () => { if (!confirm("Delete this testimonial?")) return; const r = await fetch(`/api/testimonials?id=${item.id}`, { method: "DELETE" }); setItems((await r.json()) as Testimonial[]); }} className="text-pink-400">Delete</button>
+                  <button onClick={async () => { if (!confirm("Delete this testimonial?")) return; const r = await fetch(`/api/testimonials?id=${item.id}`, { method: "DELETE" }); if (!r.ok) { setError("Could not delete testimonial."); return; } setItems((await r.json()) as Testimonial[]); setError(""); }} className="text-pink-400">Delete</button>
                 </td>
               </tr>
             ))}

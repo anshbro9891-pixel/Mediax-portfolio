@@ -4,6 +4,8 @@ import { useEffect } from "react";
 
 export default function CustomCursor() {
   useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
     const dot = document.createElement("div");
     const ring = document.createElement("div");
     dot.className = "custom-cursor-dot";

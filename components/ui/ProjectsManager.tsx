@@ -18,6 +18,7 @@ export default function ProjectsManager({ initialItems }: { initialItems: Projec
   const [items, setItems] = useState(initialItems);
   const [editing, setEditing] = useState<Project | null>(null);
   const [form, setForm] = useState(empty);
+  const [error, setError] = useState("");
 
   const save = async () => {
     const method = editing ? "PUT" : "POST";
@@ -27,7 +28,12 @@ export default function ProjectsManager({ initialItems }: { initialItems: Projec
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+    if (!response.ok) {
+      setError("Could not save project.");
+      return;
+    }
     setItems((await response.json()) as Project[]);
+    setError("");
     setEditing(null);
     setForm(empty);
   };
@@ -35,6 +41,7 @@ export default function ProjectsManager({ initialItems }: { initialItems: Projec
   return (
     <div className="space-y-6">
       <div className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-5 md:grid-cols-2">
+        {error && <p className="text-sm text-pink-400 md:col-span-2">{error}</p>}
         <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Title" className="rounded bg-black/40 p-3" />
         <input value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} placeholder="External link" className="rounded bg-black/40 p-3" />
         <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Description" className="rounded bg-black/40 p-3 md:col-span-2" />
@@ -70,7 +77,12 @@ export default function ProjectsManager({ initialItems }: { initialItems: Projec
                     onClick={async () => {
                       if (!confirm("Delete this project?")) return;
                       const response = await fetch(`/api/projects?id=${item.id}`, { method: "DELETE" });
+                      if (!response.ok) {
+                        setError("Could not delete project.");
+                        return;
+                      }
                       setItems((await response.json()) as Project[]);
+                      setError("");
                     }}
                     className="text-pink-400"
                   >
