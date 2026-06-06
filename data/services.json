@@ -1,0 +1,37 @@
+[
+  {
+    "id": "s1",
+    "icon": "Monitor",
+    "title": "Web Design",
+    "description": "High-converting websites that feel premium and perform fast.",
+    "order": 1
+  },
+  {
+    "id": "s2",
+    "icon": "Palette",
+    "title": "Brand Identity",
+    "description": "Distinct brand systems that cut through crowded markets.",
+    "order": 2
+  },
+  {
+    "id": "s3",
+    "icon": "Megaphone",
+    "title": "Social Media",
+    "description": "Creative-led social strategy and content execution at scale.",
+    "order": 3
+  },
+  {
+    "id": "s4",
+    "icon": "Clapperboard",
+    "title": "Motion Graphics",
+    "description": "Animated stories that simplify products and amplify attention.",
+    "order": 4
+  },
+  {
+    "id": "s5",
+    "icon": "Search",
+    "title": "SEO",
+    "description": "Search growth programs grounded in technical and content wins.",
+    "order": 5
+  }
+]

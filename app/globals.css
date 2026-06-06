@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  background: #0a0a0a;
+  cursor: none;
+}
+
+.font-syne {
+  font-family: "Syne", sans-serif;
+}
+
+.section-number {
+  @apply pointer-events-none mb-2 font-syne text-7xl font-extrabold leading-none text-white/10 md:text-9xl;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(40px);
+}
+
+.blob-a {
+  width: 380px;
+  height: 380px;
+  right: 8%;
+  top: 20%;
+  background: #beff0055;
+}
+
+.blob-b {
+  width: 320px;
+  height: 320px;
+  left: 8%;
+  bottom: 15%;
+  background: #ff2d7855;
+}
+
+.hero-noise {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+.custom-cursor-dot,
+.custom-cursor-ring {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: #beff00;
+  border-radius: 9999px;
+}
+
+.custom-cursor-ring {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 1px solid #beff00;
+  transition: transform 0.12s linear;
+}
+
+.marquee {
+  display: inline-flex;
+  min-width: 200%;
+  gap: 2rem;
+  animation: marquee 22s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

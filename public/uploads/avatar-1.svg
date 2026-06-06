@@ -1,0 +1,12 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'>
+  <defs>
+    <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+      <stop offset='0%' stop-color='#BEFF00'/>
+      <stop offset='100%' stop-color='#FF2D78'/>
+    </linearGradient>
+  </defs>
+  <rect width='1200' height='900' fill='#0A0A0A'/>
+  <circle cx='950' cy='180' r='180' fill='#00F0FF' fill-opacity='0.2'/>
+  <rect x='120' y='140' width='960' height='620' rx='30' fill='url(#g)' fill-opacity='0.22' stroke='#BEFF00' stroke-opacity='0.8'/>
+  <text x='600' y='470' text-anchor='middle' fill='white' font-size='72' font-family='Arial'>ULTIMATE MEDIAX</text>
+</svg>

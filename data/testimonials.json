@@ -1,0 +1,34 @@
+[
+  {
+    "id": "t1",
+    "quote": "Ultimate Mediax transformed our online presence in just weeks.",
+    "name": "Sophie Bennett",
+    "company": "Luma Labs",
+    "rating": 5,
+    "photo": "/uploads/avatar-1.svg"
+  },
+  {
+    "id": "t2",
+    "quote": "A rare mix of strategic clarity and world-class design execution.",
+    "name": "Daniel Roy",
+    "company": "PulsePay",
+    "rating": 5,
+    "photo": "/uploads/avatar-2.svg"
+  },
+  {
+    "id": "t3",
+    "quote": "The campaign performance and creative quality both exceeded targets.",
+    "name": "Aisha Khan",
+    "company": "Nova Retail",
+    "rating": 4,
+    "photo": "/uploads/avatar-3.svg"
+  },
+  {
+    "id": "t4",
+    "quote": "From branding to launch assets, they handled everything flawlessly.",
+    "name": "Marco Silva",
+    "company": "OriginOS",
+    "rating": 5,
+    "photo": "/uploads/avatar-4.svg"
+  }
+]

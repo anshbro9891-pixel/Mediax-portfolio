@@ -1,0 +1,21 @@
+{
+  "agencyName": "Ultimate Mediax",
+  "tagline": "Digital creative studio crafting bold brands and immersive web experiences.",
+  "about": "We are a lean collective of designers, strategists, and motion artists helping ambitious brands launch, scale, and lead with standout digital experiences.",
+  "email": "hello@ultimatemediax.com",
+  "phone": "+1 (555) 017-8899",
+  "whatsapp": "+15550178899",
+  "address": "225 Studio Ave, New York, NY",
+  "instagram": "https://instagram.com/ultimatemediax",
+  "twitter": "https://x.com/ultimatemediax",
+  "linkedin": "https://linkedin.com/company/ultimatemediax",
+  "behance": "https://behance.net/ultimatemediax",
+  "dribbble": "https://dribbble.com/ultimatemediax",
+  "stats": {
+    "projects": 50,
+    "clients": 30,
+    "years": 3
+  },
+  "heroImage": "/uploads/hero.svg",
+  "aboutImage": "/uploads/about.svg"
+}

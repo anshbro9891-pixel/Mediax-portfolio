@@ -1,0 +1,62 @@
+[
+  {
+    "id": "p1",
+    "title": "Nova Commerce",
+    "description": "Premium ecommerce platform for a fashion label.",
+    "category": "Web",
+    "tags": ["Next.js", "UX", "Conversion"],
+    "image": "/uploads/project-1.svg",
+    "link": "https://example.com/nova",
+    "featured": true
+  },
+  {
+    "id": "p2",
+    "title": "Pulse Rebrand",
+    "description": "Complete identity system for a fintech startup.",
+    "category": "Branding",
+    "tags": ["Logo", "Guidelines", "Packaging"],
+    "image": "/uploads/project-2.svg",
+    "link": "https://example.com/pulse",
+    "featured": true
+  },
+  {
+    "id": "p3",
+    "title": "Volt Social Sprint",
+    "description": "Performance-focused social campaign assets.",
+    "category": "Social",
+    "tags": ["Instagram", "Reels", "Ads"],
+    "image": "/uploads/project-3.svg",
+    "link": "https://example.com/volt",
+    "featured": false
+  },
+  {
+    "id": "p4",
+    "title": "Origin Explainer",
+    "description": "Motion graphics explainer for SaaS onboarding.",
+    "category": "Video",
+    "tags": ["Motion", "Storyboard", "Voiceover"],
+    "image": "/uploads/project-4.svg",
+    "link": "https://example.com/origin",
+    "featured": false
+  },
+  {
+    "id": "p5",
+    "title": "Mosaic Launch Site",
+    "description": "Marketing microsite with immersive interactions.",
+    "category": "Web",
+    "tags": ["Landing", "Animation", "SEO"],
+    "image": "/uploads/project-5.svg",
+    "link": "https://example.com/mosaic",
+    "featured": true
+  },
+  {
+    "id": "p6",
+    "title": "Arc Studio Campaign",
+    "description": "Cross-channel campaign for product launch.",
+    "category": "Social",
+    "tags": ["Campaign", "Creative", "Analytics"],
+    "image": "/uploads/project-6.svg",
+    "link": "https://example.com/arc",
+    "featured": false
+  }
+]
